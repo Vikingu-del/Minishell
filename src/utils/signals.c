@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signals.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eseferi <eseferi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: eseferi <eseferi@student.42wolfsburg.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/04 20:34:12 by eseferi           #+#    #+#             */
-/*   Updated: 2024/04/11 13:24:18 by eseferi          ###   ########.fr       */
+/*   Updated: 2024/04/11 15:44:55 by eseferi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@ void	handle_signal(void)
 	sa.sa_handler = handle_c;
 	sa.sa_flags = SA_RESTART | SA_SIGINFO;
 	sigemptyset(&sa.sa_mask);
-	rl_catch_signals = 0;
 	sigaction(SIGINT, &sa, NULL);
 	sigaction(SIGTSTP, &sa, NULL);
 	sigaction(SIGQUIT, &sa, NULL);
@@ -43,7 +42,6 @@ void	handle_sigint(int signo)
 			else
 			{
 				rl_on_new_line();
-				rl_replace_line("", 0);
 				rl_redisplay();
 			}
 		}
@@ -59,10 +57,7 @@ void	handle_sigtstp_sigquit(int signo)
 		if (isatty(STDIN_FILENO))
 		{
 			if (g_child_pid == 0)
-			{
-				rl_replace_line("", 0);
 				rl_redisplay();
-			}
 			else
 			{
 				kill(g_child_pid, signo);
