@@ -6,13 +6,13 @@
 #    By: eseferi <eseferi@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/08 16:46:30 by eseferi           #+#    #+#              #
-#    Updated: 2024/04/11 14:22:18 by eseferi          ###   ########.fr        #
+#    Updated: 2024/04/11 16:49:29 by eseferi          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 # Variables
 CC					=	gcc
-CFLAGS				=	-Wall -Wextra -Iinc -Isrc -O3 -g -fsanitize=address -fno-omit-frame-pointer
+CFLAGS				=	-Wall -Wextra -Iinc -Isrc -O3 -g #-fsanitize=address -fno-omit-frame-pointer
 
 RM					=	rm -rf
 MINISHELL			=   minishell
@@ -31,7 +31,7 @@ LIBFT_DIR			=	lib/libft
 LIBFT_FILE			=	$(LIBFT_DIR)/$(LIBFT)
 CFLAGS				+=	-I $(LIBFT_DIR)/inc
 
-MAKE_LIB			=	make --no-print-directory -C
+MAKE_LIB			=	make --no-print-directory -C 
 
 # Source and Object Files
 VPATH				=	src:inc:src/execution:src/lexer:src/parenthesis:src/parsing:src/expander:src/tree:src/utils:inc
@@ -53,7 +53,7 @@ $(LIBFT_FILE):
 					$(MAKE_LIB) $(LIBFT_DIR)
 
 $(NAME):			$(LIBFT_FILE) $(MINISHELL_OBJ)
-					@$(CC) $(CFLAGS) $(LIBFT_FILE) $(MINISHELL_OBJ) $(RL_LIBS) -o $@
+					@$(CC) $(CFLAGS) $(MINISHELL_OBJ) $(LIBFT_FILE) $(RL_LIBS) -o $@
 					@echo "$(GREEN)$(NAME) was successfully created!$(DEFAULT)"
 
 lib_clean:
